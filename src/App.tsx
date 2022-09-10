@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Calculator from "components/Calculator";
+import { ThemeProvider } from "styled-components";
+import { Container } from "styles/container";
+import lightTheme from "styles/themes/lightTheme";
+import Toggle from "components/Toggle";
+import useThemeMode from "hooks/useThemeMode";
+import darkTheme from "styles/themes/darkTheme";
 
-function App() {
+const App = () => {
+  const { theme, themeToggler } = useThemeMode();
+  const themeMode = theme === "light" ? lightTheme : darkTheme;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={themeMode}>
+      <Container>
+        <Toggle theme={theme} themeToggler={themeToggler} />
+        <Calculator />
+      </Container>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
